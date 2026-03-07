@@ -1,0 +1,69 @@
+[project]
+name = "god-tier-app"
+version = "0.1.0"
+description = "Modern Python with Rust vibes"
+readme = "README.md"
+authors = [
+    { name = "pjdevs", email = "pj33720@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "pydantic>=2.6.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.3.0",
+    "pyright>=1.1.350",
+    "pytest>=8.0.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-asyncio>=0.23.0",
+    "dirty-equals>=0.7.0",
+    "hypothesis>=6.100.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.9,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+target-version = "py314"
+line-length = 79
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN",  # flake8-annotations (pyright will check types)
+    "COM",  # flake8-commas (handled by `ruff format`)
+    "ISC",  # flake8-implicit-str-concat (handled by `ruff format`)
+    "E501", # line-length (handled by `ruff format`)
+    # avoid incompatible rules warnings
+    "D203",
+    "D212",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    # at least this four should be fine in tests:
+    "D", # pydocstyle
+    "S101", # asserts allowed in tests...
+    "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
+    "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    # The below are debateable
+    "PLR2004", # Magic value used in comparison, ...
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+]
+
+[tool.pyright]
+include = ["src", "tests"]
+typeCheckingMode = "strict"
+reportMissingTypeStubs = true
+reportUnknownMemberType = false # Too noisy with old non typed libs
+reportUntypedFunctionDecorator = true
+reportUnnecessaryIsInstance = true # Yell with useless type checks
+
+[tool.pytest.ini_options]
+# -n auto : use all CPUs (via xdist)
+# --asyncio-mode=auto : handle async def tests without anotations
+addopts = "-n auto --asyncio-mode=auto -v"
+testpaths = ["tests"]
