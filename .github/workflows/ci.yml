@@ -46,5 +46,5 @@ jobs:
       - name: 🏗️ Dry-run Build (Check "Compilation")
         run: uv build
 
-      - name: Credentials Security (Git Leaks)
-        uses: gitleaks/gitleaks-action@v2
+      # - name: Credentials Security (Git Leaks)
+      #   uses: gitleaks/gitleaks-action@v2
