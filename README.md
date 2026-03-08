@@ -43,7 +43,13 @@ uv run pytest
 uv run pre-commit install
 ```
 
-## Build
+## Run
+
+```sh
+uv run uvicorn god_tier_app.app:app
+```
+
+## Package
 
 ```sh
 uv build
