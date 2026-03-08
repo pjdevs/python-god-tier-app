@@ -41,10 +41,50 @@ jobs:
         run: uv run pyright
 
       - name: 🧪 Run Tests and Coverage (Pytest)
-        run: uv run pytest --cov=god_tier_app --cov-fail-under=80
+        run: uv run pytest --cov=god_tier_app --cov-report=xml --cov-fail-under=80
+
+      - name: Upload coverage xml
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-xml
+          path: coverage.xml
 
       - name: 🏗️ Dry-run Build (Check "Compilation")
         run: uv build
 
       # - name: Credentials Security (Git Leaks)
       #   uses: gitleaks/gitleaks-action@v2
+
+  coverage-to-gh-pages:
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: coverage-xml
+          path: coverage/
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.14"
+
+      - run: |
+          pip install pytest-cov-to-badge
+          pytest-cov-to-badge --input coverage/coverage.xml --output coverage.svg
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
+          git add coverage.svg
+          git commit -m "Update coverage badge [skip ci]" || echo "No changes to commit"
+          git push -u origin gh-pages
