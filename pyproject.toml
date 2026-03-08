@@ -26,6 +26,7 @@ dev = [
     "validate-pyproject>=0.25",
     "pytest-cov>=7.0.0",
     "httpx>=0.28.1",
+    "pytest-mock>=3.15.1",
 ]
 
 [build-system]
@@ -43,6 +44,8 @@ ignore = [
     "COM",  # flake8-commas (handled by `ruff format`)
     "ISC",  # flake8-implicit-str-concat (handled by `ruff format`)
     "E501", # line-length (handled by `ruff format`)
+    # type annotations for wireup and FastAPI are required
+    "TC002",
     # avoid incompatible rules warnings
     "D203",
     "D212",

@@ -6,6 +6,6 @@ from god_tier_app.common import SuperGreeter
 
 
 @injectable
-async def hello() -> SuperGreeter:
+async def get_greeter() -> SuperGreeter:
     """Hello service returning a greeting."""
     return SuperGreeter()
