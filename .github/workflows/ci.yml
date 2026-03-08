@@ -66,15 +66,15 @@ jobs:
       - uses: actions/download-artifact@v6
         with:
           name: coverage-xml
-          path: coverage/
+          path: .
 
       - uses: actions/setup-python@v6
         with:
           python-version: "3.14"
 
       - run: |
-          pip install pytest-cov-to-badge
-          pytest-cov-to-badge --input coverage/coverage.xml --output coverage.svg
+          pip install coverage-badge
+          coverage-badge -o coverage.svg
 
       - run: |
           git config user.name "github-actions[bot]"
