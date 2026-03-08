@@ -16,7 +16,7 @@ uv sync --all-extras --dev
 ## Lint
 
 ```sh
-uv run ruff check
+uv run ruff check --fix
 ```
 
 ## Format

@@ -12,3 +12,12 @@ async def hello() -> str:
 def super_sum(a: int, b: int) -> int:
     """Return the sum of two integers."""
     return a + b
+
+
+class SuperGreeter:
+    """A super greeter class."""
+
+    async def greet(self, name: str) -> str:
+        """Return a personalized greeting."""
+        await asyncio.sleep(0.1)
+        return f"Hello, {name}!"

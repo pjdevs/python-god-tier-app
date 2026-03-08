@@ -10,6 +10,7 @@ requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.135.1",
     "uvicorn>=0.41.0",
+    "wireup>=2.8.0",
 ]
 
 [dependency-groups]
