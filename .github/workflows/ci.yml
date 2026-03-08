@@ -40,8 +40,8 @@ jobs:
       - name: 🧠 Type Check (Pyright)
         run: uv run pyright
 
-      - name: 🧪 Run Tests (Pytest)
-        run: uv run pytest
+      - name: 🧪 Run Tests and Coverage (Pytest)
+        run: uv run pytest --cov=god_tier_app --cov-fail-under=80
 
       - name: 🏗️ Dry-run Build (Check "Compilation")
         run: uv build
