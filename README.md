@@ -1,5 +1,9 @@
 # God Tier App
 
+![CI Status](https://github.com/pjdevs/python-god-tier-app/actions/workflows/ci.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
+![License](https://badgen.net/github/license/pjdevs/python-god-tier-app)
+
 Modern Python with Rust vibes.
 
 ## Install dependencies
