@@ -1,5 +1,6 @@
-from god_tier_app import hello
+from god_tier_app.common import hello
 
 
-def test_hello():
-    assert hello().startswith("Hello")
+async def test_hello():
+    result = await hello()
+    assert result.startswith("Hello")
