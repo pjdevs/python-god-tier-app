@@ -15,18 +15,26 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    # Ruff for formating and linting
     "ruff>=0.3.0",
+    # Pyright for type checking
     "pyright>=1.1.350",
+    # Pytest with coverage, mock, async, parallel running and nice output
     "pytest>=8.0.0",
+    "pytest-cov>=7.0.0",
     "pytest-xdist>=3.5.0",
     "pytest-asyncio>=0.23.0",
+    "pytest-mock>=3.15.1",
+    "pytest-sugar>=1.1.1",
+    "pytest-clarity>=1.0.1",
+    "pytest-instafail>=0.5.0",
+    "httpx>=0.28.1", # Testing HTTP client for FastAPI tests
+    # Quality of life testing tools
     "dirty-equals>=0.7.0",
     "hypothesis>=6.100.0",
+    # Pre-commit and git hooks
     "pre-commit>=4.5.1",
     "validate-pyproject>=0.25",
-    "pytest-cov>=7.0.0",
-    "httpx>=0.28.1",
-    "pytest-mock>=3.15.1",
 ]
 
 [build-system]
@@ -76,5 +84,5 @@ reportUnnecessaryIsInstance = true # Yell with useless type checks
 [tool.pytest.ini_options]
 # -n auto : use all CPUs (via xdist)
 # --asyncio-mode=auto : handle async def tests without anotations
-addopts = "-n auto --asyncio-mode=auto -v"
+addopts = "--asyncio-mode=auto -v --instafail --cov=god_tier_app --cov-report=term-missing --cov-fail-under=80"
 testpaths = ["tests"]
