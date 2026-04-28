@@ -18,3 +18,7 @@ coverage/
 nosetests.xml
 coverage.*
 .hypothesis/
+
+# IDEs
+.vscode/
+.idea/

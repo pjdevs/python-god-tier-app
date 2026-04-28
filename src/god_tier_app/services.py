@@ -3,6 +3,13 @@
 from wireup import injectable
 
 from god_tier_app.common import SuperGreeter
+from god_tier_app.settings import GodTierSettings
+
+
+@injectable
+async def get_settings() -> GodTierSettings:
+    """Load configuration from environment variables."""
+    return GodTierSettings()  # ty:ignore[missing-argument]
 
 
 @injectable

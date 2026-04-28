@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+tasks:
+  setup:python:
+    desc: Set up Python environment
+    cmds:
+      - uv python install 3.14
+    silent: true
+
+  setup:dependencies:
+    desc: Install project dependencies
+    cmds:
+      - uv sync --all-packages --all-extras --dev
+    silent: true
+
+  lint:
+    desc: Lint format and type check project
+    cmds:
+      - uv run ruff format --check .
+      - uv run ruff check .
+      - uv run ty check .
+    silent: true
+
+  test:
+    desc: Run project tests
+    cmds:
+      - uv run pytest --cov=god_tier_app --cov-report=xml --cov-fail-under=80 .
+    silent: true
+
+  build:
+    desc: Build the project
+    cmds:
+      - uv build
+    silent: true

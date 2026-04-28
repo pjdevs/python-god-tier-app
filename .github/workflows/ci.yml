@@ -25,23 +25,20 @@ jobs:
           enable-cache: true
           cache-dependency-glob: "uv.lock"
 
+      - name: Install Task
+        uses: go-task/setup-task@v1
+
       - name: 🐍 Set up Python 3.14
-        run: uv python install 3.14
+        run: task setup:python
 
       - name: 📦 Install dependencies
-        run: uv sync --all-extras --dev
+        run: task setup:dependencies
 
-      - name: 🎨 Check Formatting (Ruff)
-        run: uv run ruff format --check .
-
-      - name: 🚨 Lint (Ruff)
-        run: uv run ruff check .
-
-      - name: 🧠 Type Check (Pyright)
-        run: uv run pyright
+      - name: 🚨 Lint & 🎨 Format & 🧠 Type Check (Ruff & Pyright)
+        run: task lint
 
       - name: 🧪 Run Tests and Coverage (Pytest)
-        run: uv run pytest --cov=god_tier_app --cov-report=xml --cov-fail-under=80
+        run: task test
 
       - name: Upload coverage xml
         uses: actions/upload-artifact@v7
@@ -50,7 +47,7 @@ jobs:
           path: coverage.xml
 
       - name: 🏗️ Dry-run Build (Check "Compilation")
-        run: uv build
+        run: task build
 
       # - name: Credentials Security (Git Leaks)
       #   uses: gitleaks/gitleaks-action@v2
